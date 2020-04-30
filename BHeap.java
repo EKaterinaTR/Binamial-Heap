@@ -156,40 +156,8 @@ public class BHeap<T extends Comparable<T>> {
     }
 
     public void delete(Node<T> node){
-        //!!Не тесщино
-        /*должно было быть :
-          decreaseKey(node,минимальное возможное значение);
-          extractMin();
-
-          но для T не знаю минимального, поэтому частичный копипасть из extractMin();
-        */
-
         decreaseKey(node,getMin());
-        Node<T> node1 = node;
-        while (node1.parent != null) {
-            node1 = node1.parent;
-        }
-
-        for (int i = 0; i < trees.size(); i++) {
-            if(trees.get(i).root == node1) {
-                trees.remove(trees.get(i));
-                i = trees.size();
-            }
-        }
-
-
-
-        ArrayList<BTree<T>> newtrees  = new ArrayList<>();
-        ArrayList<Node<T>>  children = new ArrayList<>();
-        Node<T> leftChild = node1.child;
-        while(leftChild != null) {
-            children.add(leftChild);
-            leftChild = leftChild.sibling;
-        }
-        for(int i = children.size()-1; i >= 0; i--) {
-            newtrees.add(new BTree<T>(children.get(i)));
-        }
-        merge(new BHeap<>(newtrees));
+        extractMin();
 
   }
 
